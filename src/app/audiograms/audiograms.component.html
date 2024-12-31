@@ -1,7 +1,12 @@
 <section>
 
-    <div>
+    <h1>Ton-Vertäubung</h1>
 
+</section>
+
+<section>
+
+    <div>
         <canvas baseChart #chartRight [data]="lineChartDataRight" [options]="lineChartOptions" [type]="lineChartType">
         </canvas>
 
@@ -79,6 +84,6 @@
 
 <section>
     @if (checkKLVert() || checkLLVert()) {
-    <button>Zeige Vertäubungspegel</button>
+    <button (click)="toggleVert()">Zeige/Verstecke Vertäubungspegel</button>
     }
 </section>

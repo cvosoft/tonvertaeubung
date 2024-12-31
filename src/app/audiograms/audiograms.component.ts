@@ -17,6 +17,8 @@ export class AudiogramComponent {
   @ViewChild('chartRight', { static: false, read: BaseChartDirective }) chartRight?: BaseChartDirective;
   @ViewChild('chartLeft', { static: false, read: BaseChartDirective }) chartLeft?: BaseChartDirective;
 
+  show: boolean = false;
+
   KLRechts = [10, 10, 5, 5, 0, 5];
   LLRechts = [30, 40, 45, 55, 50, 55];
 
@@ -72,7 +74,7 @@ export class AudiogramComponent {
         borderColor: 'red',
         pointStyle: 'triangle',
         borderDash: [5, 5],
-        pointRadius: 10,
+        pointRadius: 7,
         fill: false,
       },
       {
@@ -90,8 +92,8 @@ export class AudiogramComponent {
     datasets: [
       {
         data: this.KLLinks,
-        pointStyle: 'star',
-        pointRadius: 10,
+        pointStyle: 'triangle',
+        pointRadius: 7,
         borderDash: [5, 5],
         borderColor: 'blue',
         fill: false,
@@ -102,7 +104,7 @@ export class AudiogramComponent {
         pointRadius: 10,
         borderColor: 'blue',
         fill: false,
-      }
+      },
     ]
   };
 
@@ -116,6 +118,30 @@ export class AudiogramComponent {
     this.chartLeft?.update(); // Aktualisiert den Chart
   }
 
+
+  toggleVert() {
+
+    let newSet =
+    {
+      data: [0, 0, 0, 20, 30, 40],
+      pointStyle: 'crossRot',
+      pointRadius: 10,
+      borderColor: 'red',
+      fill: false,
+    };
+
+    if (!this.show) {
+      this.lineChartDataLeft.datasets.push(newSet);
+      this.show = true;
+    } else {
+      this.lineChartDataLeft.datasets.pop();
+      this.show = false;
+    }
+
+    this.updateChartLeft();
+    this.updateChartRight();
+
+  }
 
 
   // Chart-Optionen
