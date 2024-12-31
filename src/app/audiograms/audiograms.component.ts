@@ -25,8 +25,35 @@ export class AudiogramComponent {
 
   checkKLVert(): boolean {
     for (let i = 0; i < this.KLLinks.length; i++) {
-      let diff = Math.abs(this.KLLinks[i] - this.KLRechts[i]);
-      if (diff >= 10) { return true }
+      // rechts ist besser, links ist schlechter
+      let diff = this.KLLinks[i] - this.KLRechts[i];
+      if (diff >= 10) {
+        // ist es überhaupt nötig?
+        let diffMO = this.LLLinks[i] - this.KLLinks[i]; // auf Messohr
+        if (diffMO > 10) { return true }
+      }
+    }
+    for (let i = 0; i < this.KLLinks.length; i++) {
+      // links ist besser, rechts ist schlechter
+      let diff = this.KLRechts[i] - this.KLLinks[i];
+      if (diff >= 10) {
+        // ist es überhaupt nötig?
+        let diffMO = this.LLRechts[i] - this.KLRechts[i]; // auf Messohr
+        if (diffMO > 10) { return true }
+      }
+    }
+
+    return false;
+  }
+
+  checkLLVert(): boolean {
+    for (let i = 0; i < this.KLLinks.length; i++) {
+      let diff = Math.abs(this.KLLinks[i] - this.LLRechts[i]);
+      if (diff >= 50) { return true }
+    }
+    for (let i = 0; i < this.KLRechts.length; i++) {
+      let diff = Math.abs(this.KLRechts[i] - this.LLLinks[i]);
+      if (diff >= 50) { return true }
     }
     return false;
   }
@@ -80,7 +107,7 @@ export class AudiogramComponent {
 
   // Methode zum Aktualisieren des Charts
   updateChartRight() {
-    console.log('chartRight instance:', this.chartRight);
+    //console.log('chartRight instance:', this.chartRight);
     this.lineChartDataRight = { ...this.lineChartDataRight };
     this.chartRight?.update(); // Aktualisiert den Chart
   }

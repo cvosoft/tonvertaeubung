@@ -65,7 +65,20 @@
 
 </section>
 
+<section>
+    @if (checkKLVert()) {
+    Die KL muss bei mindestens einer Frequenz vertäubt werden!!
+    }
+</section>
 
-@if (checkKLVert()) {
-KL muss bei mindestens einer Frequenz vertäubt werden!!
-}
+<section>
+    @if (checkLLVert()) {
+    Die LL muss bei mindestens einer Frequenz vertäubt werden!!
+    }
+</section>
+
+<section>
+    @if (checkKLVert() || checkLLVert()) {
+    <button>Zeige Vertäubungspegel</button>
+    }
+</section>
