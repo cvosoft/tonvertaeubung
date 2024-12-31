@@ -25,6 +25,12 @@ export class AudiogramComponent {
   KLLinks = [10, 10, 5, 5, 0, 5];
   LLLinks = [20, 20, 15, 15, 10, 15];
 
+  VertLinksKL = [60, null, null, null, null, null];
+  VertLinksLL = [70, null, null, null, null, null];
+  VertRechtsKL = [80, null, null, null, null, null];
+  VertRechtsLL = [90, null, null, null, null, null];
+
+
   checkKLVert(): boolean {
     for (let i = 0; i < this.KLLinks.length; i++) {
       // rechts ist besser, links ist schlechter
@@ -66,7 +72,7 @@ export class AudiogramComponent {
 
 
   // Chart-Daten
-  public lineChartDataRight = {
+  public lineChartDataRight: any = {
     labels: ['0.25', '0.5', '1', '2', '4', '8'],
     datasets: [
       {
@@ -83,11 +89,23 @@ export class AudiogramComponent {
         pointRadius: 5,
         fill: false,
       },
+      {
+        data: this.VertRechtsKL,
+        borderColor: 'blue',
+        pointRadius: 5,
+        fill: false,
+      },
+      {
+        data: this.VertRechtsLL,
+        borderColor: 'blue',
+        pointRadius: 5,
+        fill: false,
+      },
     ]
   };
 
   // Chart-Daten
-  public lineChartDataLeft = {
+  public lineChartDataLeft: any = {
     labels: ['0.25', '0.5', '1', '2', '4', '8'],
     datasets: [
       {
@@ -105,6 +123,18 @@ export class AudiogramComponent {
         borderColor: 'blue',
         fill: false,
       },
+      {
+        data: this.VertLinksKL,
+        borderColor: 'red',
+        pointRadius: 5,
+        fill: false,
+      },
+      {
+        data: this.VertLinksLL,
+        borderColor: 'red',
+        pointRadius: 5,
+        fill: false,
+      },
     ]
   };
 
@@ -120,25 +150,12 @@ export class AudiogramComponent {
 
 
   toggleVert() {
-
-    let newSet: any =
-    {
-      data: [null, null, 0, 0, 30, 40],
-      pointStyle: 'star',
-      pointRadius: 10,
-      borderColor: 'red',
-      fill: false,
-      showLine: false,
-    };
-
     if (!this.show) {
-      this.lineChartDataLeft.datasets.push(newSet);
-      this.show = true;
-    } else {
-      this.lineChartDataLeft.datasets.pop();
-      this.show = false;
+      this.VertLinksKL.fill(null);
+      this.VertLinksLL.fill(null);
+      this.VertRechtsKL.fill(null);
+      this.VertRechtsLL.fill(null);
     }
-
     this.updateChartLeft();
     this.updateChartRight();
 
