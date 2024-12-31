@@ -17,24 +17,18 @@ export class AudiogramComponent {
   @ViewChild('chartRight', { static: false, read: BaseChartDirective }) chartRight?: BaseChartDirective;
   @ViewChild('chartLeft', { static: false, read: BaseChartDirective }) chartLeft?: BaseChartDirective;
 
-  KLRechts = [20, 20, 25, 25, 20, 25];
+  KLRechts = [10, 10, 5, 5, 0, 5];
   LLRechts = [30, 40, 45, 55, 50, 55];
 
   KLLinks = [10, 10, 5, 5, 0, 5];
   LLLinks = [20, 20, 15, 15, 10, 15];
 
-  checkKLVert() {
-    this.KLLinks.forEach((KL1) => {
-      this.KLRechts.forEach((KL2) => {
-        let diff = Math.abs(KL1 - KL2);
-        if (diff >= 10) {
-          console.log(diff);
-        }
-
-      });
-    });
-
-
+  checkKLVert(): boolean {
+    for (let i = 0; i < this.KLLinks.length; i++) {
+      let diff = Math.abs(this.KLLinks[i] - this.KLRechts[i]);
+      if (diff >= 10) { return true }
+    }
+    return false;
   }
 
 
