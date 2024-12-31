@@ -121,13 +121,14 @@ export class AudiogramComponent {
 
   toggleVert() {
 
-    let newSet =
+    let newSet: any =
     {
-      data: [0, 0, 0, 20, 30, 40],
-      pointStyle: 'crossRot',
+      data: [null, null, 0, 0, 30, 40],
+      pointStyle: 'star',
       pointRadius: 10,
       borderColor: 'red',
       fill: false,
+      showLine: false,
     };
 
     if (!this.show) {
