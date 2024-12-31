@@ -70,8 +70,9 @@ export class AudiogramComponent {
       {
         data: this.KLRechts,
         borderColor: 'red',
+        pointStyle: 'triangle',
         borderDash: [5, 5],
-        pointRadius: 0,
+        pointRadius: 10,
         fill: false,
       },
       {
@@ -89,8 +90,8 @@ export class AudiogramComponent {
     datasets: [
       {
         data: this.KLLinks,
-        pointStyle: 'crossRot',
-        pointRadius: 0,
+        pointStyle: 'star',
+        pointRadius: 10,
         borderDash: [5, 5],
         borderColor: 'blue',
         fill: false,
@@ -107,7 +108,6 @@ export class AudiogramComponent {
 
   // Methode zum Aktualisieren des Charts
   updateChartRight() {
-    //console.log('chartRight instance:', this.chartRight);
     this.lineChartDataRight = { ...this.lineChartDataRight };
     this.chartRight?.update(); // Aktualisiert den Chart
   }
