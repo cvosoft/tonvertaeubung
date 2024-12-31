@@ -1,0 +1,68 @@
+<section>
+
+    <div>
+
+        <canvas baseChart #chartRight [data]="lineChartDataRight" [options]="lineChartOptions" [type]="lineChartType">
+        </canvas>
+
+        <table>
+            <tr>
+                @for (label of lineChartDataRight.labels; track label) {
+                <th>{{ label }}</th>
+                }
+            </tr>
+
+            <tr>@for (value of KLRechts; track value; let index = $index) {
+                <td>
+                    <input [(ngModel)]="KLRechts[index]" type="number" step="5" min="0" max="{{LLRechts[index]}}"
+                        (ngModelChange)="updateChartRight()">
+                </td>
+                }
+            </tr>
+            <tr>@for (value of LLRechts; track value; let index = $index) {
+                <td>
+                    <input [(ngModel)]="LLRechts[index]" type="number" step="5" min="{{KLRechts[index]}}" max="120"
+                        (ngModelChange)="updateChartRight()">
+                </td>
+                }
+            </tr>
+
+
+        </table>
+
+    </div>
+
+    <div>
+        <canvas baseChart #chartLeft [data]="lineChartDataLeft" [options]="lineChartOptions" [type]="lineChartType">
+        </canvas>
+
+        <table>
+            <tr>
+                @for (label of lineChartDataRight.labels; track label) {
+                <th>{{ label }}</th>
+                }
+            </tr>
+
+            <tr>@for (value of KLLinks; track value; let index = $index) {
+                <td>
+                    <input [(ngModel)]="KLLinks[index]" type="number" step="5" min="0" max="{{LLLinks[index]}}"
+                        (ngModelChange)="updateChartLeft()">
+                </td>
+                }
+            </tr>
+            <tr>@for (value of LLLinks; track value; let index = $index) {
+                <td>
+                    <input [(ngModel)]="LLLinks[index]" type="number" step="5" min="{{KLLinks[index]}}" max="120"
+                        (ngModelChange)="updateChartLeft()">
+                </td>
+                }
+            </tr>
+
+
+        </table>
+    </div>
+
+
+
+
+</section>
