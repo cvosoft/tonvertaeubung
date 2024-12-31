@@ -6,14 +6,18 @@ section {
 
     div {
 
+        padding: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        border: 1px solid black;
 
         canvas {
-            width: 48vw !important;
-            height: 80vh !important;
+            width: 21vw !important;
+            height: 40vh !important;
             border: 1px solid black;
+            margin: 5px;
+            padding: 5px;
         }
     }
 }

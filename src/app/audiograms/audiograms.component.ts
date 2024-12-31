@@ -14,14 +14,29 @@ import { MatButton } from '@angular/material/button';
 })
 export class AudiogramComponent {
 
-  @ViewChild('chartRight', { static: false }) chartRight?: BaseChartDirective;
-  @ViewChild('chartLeft', { static: false }) chartLeft?: BaseChartDirective;
+  @ViewChild('chartRight', { static: false, read: BaseChartDirective }) chartRight?: BaseChartDirective;
+  @ViewChild('chartLeft', { static: false, read: BaseChartDirective }) chartLeft?: BaseChartDirective;
 
   KLRechts = [20, 20, 25, 25, 20, 25];
   LLRechts = [30, 40, 45, 55, 50, 55];
 
   KLLinks = [10, 10, 5, 5, 0, 5];
   LLLinks = [20, 20, 15, 15, 10, 15];
+
+  checkKLVert() {
+    this.KLLinks.forEach((KL1) => {
+      this.KLRechts.forEach((KL2) => {
+        let diff = Math.abs(KL1 - KL2);
+        if (diff >= 10) {
+          console.log(diff);
+        }
+
+      });
+    });
+
+
+  }
+
 
   // Chart-Typ: LineChart
   public lineChartType: ChartType = 'line';
@@ -71,6 +86,7 @@ export class AudiogramComponent {
 
   // Methode zum Aktualisieren des Charts
   updateChartRight() {
+    console.log('chartRight instance:', this.chartRight);
     this.lineChartDataRight = { ...this.lineChartDataRight };
     this.chartRight?.update(); // Aktualisiert den Chart
   }
@@ -79,13 +95,7 @@ export class AudiogramComponent {
     this.chartLeft?.update(); // Aktualisiert den Chart
   }
 
-  checkBone(): boolean {
-    this.lineChartDataRight.datasets[0].data.forEach((element, i) => {
-      let diff = element - this.lineChartDataLeft.datasets[0].data[i];
-      console.log(diff);
-    })
-    return false
-  }
+
 
   // Chart-Optionen
   public lineChartOptions = {
