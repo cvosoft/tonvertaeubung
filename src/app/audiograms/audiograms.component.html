@@ -24,7 +24,7 @@
 
             <tr>@for (value of KLRechts; track value; let index = $index) {
                 <td>
-                    <input [(ngModel)]="KLRechts[index]" type="number" step="5" min="{{Math.min(0, LLRechts[index]-45)}}"
+                    <input [(ngModel)]="KLRechts[index]" type="number" step="5" min="{{Math.max(0, LLRechts[index]-45)}}"
                         max="{{LLRechts[index]}}" (ngModelChange)="checkForVert();calcVert();updateCharts()">
                 </td>
                 }
@@ -55,7 +55,7 @@
 
             <tr>@for (value of KLLinks; track value; let index = $index) {
                 <td>
-                    <input [(ngModel)]="KLLinks[index]" type="number" step="5" min="{{Math.min(0, LLLinks[index]-45)}}"
+                    <input [(ngModel)]="KLLinks[index]" type="number" step="5" min="{{Math.max(0, LLLinks[index]-45)}}"
                         max="{{LLLinks[index]}}" (ngModelChange)="checkForVert();calcVert();updateCharts()">
                 </td>
                 }
