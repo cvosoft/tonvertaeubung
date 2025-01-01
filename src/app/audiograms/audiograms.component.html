@@ -3,8 +3,8 @@
     <h1>Ton-Vertäubung</h1>
 
     <span style="font-size: small;">
-        Symbol KL-Vertäubung: Stern<br>
-        Symbol: LL-Vertäubung: Rechteck
+        Symbol für KL-Vertäubung: Stern<br>
+        Symbol für LL-Vertäubung: Rechteck
     </span>
 
 </section>
@@ -24,7 +24,7 @@
 
             <tr>@for (value of KLRechts; track value; let index = $index) {
                 <td>
-                    <input [(ngModel)]="KLRechts[index]" type="number" step="5" min="0" max="{{LLRechts[index]}}"
+                    <input [(ngModel)]="KLRechts[index]" type="number" step="5" min="{{LLRechts[index]-45}}" max="{{LLRechts[index]}}"
                         (ngModelChange)="checkForVert();calcVert();updateCharts()">
                 </td>
                 }
@@ -55,7 +55,7 @@
 
             <tr>@for (value of KLLinks; track value; let index = $index) {
                 <td>
-                    <input [(ngModel)]="KLLinks[index]" type="number" step="5" min="0" max="{{LLLinks[index]}}"
+                    <input [(ngModel)]="KLLinks[index]" type="number" step="5" min="{{LLLinks[index]-45}}" max="{{LLLinks[index]}}"
                         (ngModelChange)="checkForVert();calcVert();updateCharts()">
                 </td>
                 }
@@ -77,14 +77,14 @@
 
 <section>
     @if (checkForKLVert() || checkForLLVert()) {
-    Die Audiogramme wurden unter Vertäubung aufgenommen
-    }
-    @if (checkForKLVert()) {
+    Die Audiogramme wurden unter Vertäubung aufgenommen.
+    } @else {Die Audiogramme wurden ohne Vertäubung aufgenommen.}
+    <!-- @if (checkForKLVert()) {
     (KL)
     }
     @if (checkForLLVert()) {
     (LL)
-    }
+} -->
 </section>
 
 <section>
@@ -93,8 +93,8 @@
     }
 </section>
 
-
-
 <section>
+    @if (checkForKLVert() || checkForLLVert()) {
     <input type="checkbox" (change)="toggleVert()">Zeige Vertäubungspegel
+    }
 </section>
