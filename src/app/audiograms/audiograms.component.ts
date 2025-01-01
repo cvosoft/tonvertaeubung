@@ -19,13 +19,13 @@ export class AudiogramComponent {
 
   Math = Math;
 
-  showVertpegel: boolean = false;
+  showVertpegel: boolean = true;
 
-  KLRechts = [5, 5, 5, 5, 0, 5];
-  LLRechts = [10, 10, 10, 15, 15, 15];
+  KLRechts = [5, 5, 5, 5, 55, 5];
+  LLRechts = [10, 10, 10, 15, 75, 15];
 
   KLLinks = [15, 10, 15, 20, 20, 5];
-  LLLinks = [20, 20, 45, 40, 40, 45];
+  LLLinks = [30, 20, 45, 40, 40, 45];
 
   VertLinksKL: any = [null, null, null, null, null, null];
   VertLinksLL: any = [null, null, null, null, null, null];
@@ -34,6 +34,7 @@ export class AudiogramComponent {
 
 
   constructor() {
+    this.calcVert();
   }
 
 
