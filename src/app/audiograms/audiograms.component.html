@@ -1,6 +1,11 @@
-<section>
+<section style="display: flex; align-items: center; gap: 50px">
 
     <h1>Ton-Vertäubung</h1>
+
+    <span style="font-size: small;">
+        Symbol KL-Vertäubung: Stern<br>
+        Symbol: LL-Vertäubung: Rechteck
+    </span>
 
 </section>
 
@@ -79,8 +84,15 @@
     }
     @if (checkForLLVert()) {
     (LL)
-    }.
+    }
 </section>
+
+<section>
+    @if (checkForUberVert()){
+    Achtung: Übervertäubung!
+    }
+</section>
+
 
 
 <section>

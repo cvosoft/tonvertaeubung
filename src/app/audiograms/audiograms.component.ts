@@ -42,6 +42,15 @@ export class AudiogramComponent {
     this.VertRechtsLL.fill(null);
   }
 
+  checkForUberVert(): boolean {
+    for (let i = 0; i < this.KLLinks.length; i++) {
+      if (this.VertLinksLL[i] - 50 >= this.KLRechts[i]) { return true }
+      if (this.VertRechtsLL[i] - 50 >= this.KLLinks[i]) { return true }
+      if (this.VertLinksKL[i] - 50 >= this.KLRechts[i]) { return true }
+      if (this.VertRechtsKL[i] - 50 >= this.KLLinks[i]) { return true }      
+    } return false
+  }
+
 
   checkForVert() {
     this.checkForKLVert();
@@ -129,17 +138,13 @@ export class AudiogramComponent {
     for (let i = 0; i < this.KLLinks.length; i++) {
       let diff = Math.abs(this.KLLinks[i] - this.LLRechts[i]);
       if (diff >= 50) {
-        if (this.showVertpegel) {
-          this.VertLinksLL[i] = this.LLLinks[i] + 20;
-        }
+        this.VertLinksLL[i] = this.LLLinks[i] + 20 + (diff - 50);
       } else { this.VertLinksLL[i] = null }
     }
     for (let i = 0; i < this.KLRechts.length; i++) {
       let diff = Math.abs(this.KLRechts[i] - this.LLLinks[i]);
       if (diff >= 50) {
-        if (this.showVertpegel) {
-          this.VertRechtsLL[i] = this.LLRechts[i] + 20;
-        }
+        this.VertRechtsLL[i] = this.LLRechts[i] + 20 + (diff - 50);
       } else { this.VertRechtsLL[i] = null }
     }
   }
@@ -169,14 +174,18 @@ export class AudiogramComponent {
       {
         data: this.VertRechtsKL,
         borderColor: 'blue',
+        pointStyle: 'star',
         pointRadius: 5,
         fill: false,
+        showLine: false //<- set this
       },
       {
         data: this.VertRechtsLL,
         borderColor: 'blue',
+        pointStyle: 'rect',
         pointRadius: 5,
         fill: false,
+        showLine: false //<- set this
       },
     ]
   };
@@ -205,12 +214,16 @@ export class AudiogramComponent {
         borderColor: 'red',
         pointRadius: 5,
         fill: false,
+        pointStyle: 'star',
+        showLine: false //<- set this
       },
       {
         data: this.VertLinksLL,
         borderColor: 'red',
+        pointStyle: 'rect',
         pointRadius: 5,
         fill: false,
+        showLine: false //<- set this
       },
     ]
   };
