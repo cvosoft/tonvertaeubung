@@ -20,14 +20,14 @@
             <tr>@for (value of KLRechts; track value; let index = $index) {
                 <td>
                     <input [(ngModel)]="KLRechts[index]" type="number" step="5" min="0" max="{{LLRechts[index]}}"
-                        (ngModelChange)="checkAndCalcVert();updateChartRight()">
+                        (ngModelChange)="checkForVert();calcVert();updateCharts()">
                 </td>
                 }
             </tr>
             <tr>@for (value of LLRechts; track value; let index = $index) {
                 <td>
-                    <input [(ngModel)]="LLRechts[index]" type="number" step="5" min="{{KLRechts[index]}}" max="120"
-                        (ngModelChange)="checkAndCalcVert();updateChartRight()">
+                    <input [(ngModel)]="LLRechts[index]" type="number" step="5" min="{{KLRechts[index]}}"
+                        max="{{KLRechts[index]+45}}" (ngModelChange)="checkForVert();calcVert();updateCharts()">
                 </td>
                 }
             </tr>
@@ -51,14 +51,14 @@
             <tr>@for (value of KLLinks; track value; let index = $index) {
                 <td>
                     <input [(ngModel)]="KLLinks[index]" type="number" step="5" min="0" max="{{LLLinks[index]}}"
-                        (ngModelChange)="checkAndCalcVert();updateChartRight()">
+                        (ngModelChange)="checkForVert();calcVert();updateCharts()">
                 </td>
                 }
             </tr>
             <tr>@for (value of LLLinks; track value; let index = $index) {
                 <td>
-                    <input [(ngModel)]="LLLinks[index]" type="number" step="5" min="{{KLLinks[index]}}" max="120"
-                        (ngModelChange)="checkAndCalcVert();updateChartRight()">
+                    <input [(ngModel)]="LLLinks[index]" type="number" step="5" min="{{KLLinks[index]}}"
+                        max="{{KLLinks[index]+45}}" (ngModelChange)="checkForVert();calcVert();updateCharts()">
                 </td>
                 }
             </tr>
@@ -71,18 +71,17 @@
 </section>
 
 <section>
-    @if (checkAndCalcKLVert() || checkAndCalcLLVert()) {
-    Die Audiogramme wurden unter Vertäubung aufgenommen.
+    @if (checkForKLVert() || checkForLLVert()) {
+    Die Audiogramme wurden unter Vertäubung aufgenommen
     }
+    @if (checkForKLVert()) {
+    (KL)
+    }
+    @if (checkForLLVert()) {
+    (LL)
+    }.
 </section>
 
-<!--
-
-<section>
-    @if (checkLLVert()) {
-    Die LL musste bei mindestens einer Frequenz vertäubt werden!!
-    }
-</section> -->
 
 <section>
     <input type="checkbox" (change)="toggleVert()">Zeige Vertäubungspegel

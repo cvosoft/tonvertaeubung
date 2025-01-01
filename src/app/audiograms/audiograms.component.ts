@@ -19,11 +19,11 @@ export class AudiogramComponent {
 
   showVertpegel: boolean = false;
 
-  KLRechts = [10, 10, 5, 5, 0, 5];
-  LLRechts = [30, 40, 45, 55, 50, 55];
+  KLRechts = [5, 5, 5, 5, 0, 5];
+  LLRechts = [10, 10, 10, 15, 15, 15];
 
-  KLLinks = [10, 10, 5, 5, 0, 5];
-  LLLinks = [20, 20, 15, 15, 10, 15];
+  KLLinks = [15, 10, 15, 20, 20, 5];
+  LLLinks = [20, 20, 45, 40, 40, 45];
 
   VertLinksKL: any = [null, null, null, null, null, null];
   VertLinksLL: any = [null, null, null, null, null, null];
@@ -32,7 +32,6 @@ export class AudiogramComponent {
 
 
   constructor() {
-    this.hideVert();
   }
 
 
@@ -44,13 +43,44 @@ export class AudiogramComponent {
   }
 
 
-  checkAndCalcVert() {
-    this.checkAndCalcKLVert();
-    this.checkAndCalcLLVert();
+  checkForVert() {
+    this.checkForKLVert();
+    this.checkForLLVert();
+  }
+
+  calcVert() {
+    this.calcKLVert();
+    this.calcLLVert();
+  }
+
+  checkForKLVert(): boolean {
+    // rechts ist besser, links ist schlechter
+    for (let i = 0; i < this.KLLinks.length; i++) {
+      let diff = this.KLLinks[i] - this.KLRechts[i];
+      if (diff >= 10) {
+        // ist es überhaupt nötig?
+        let diffMO = this.LLLinks[i] - this.KLLinks[i]; // auf Messohr
+        if (diffMO > 10) {
+          return true
+        }
+      }
+    }
+    // links ist besser, rechts ist schlechter
+    for (let i = 0; i < this.KLLinks.length; i++) {
+      let diff = this.KLRechts[i] - this.KLLinks[i];
+      if (diff >= 10) {
+        // ist es überhaupt nötig?
+        let diffMO = this.LLRechts[i] - this.KLRechts[i]; // auf Messohr
+        if (diffMO > 10) {
+          return true
+        }
+      }
+    }
+    return false;
   }
 
 
-  checkAndCalcKLVert(): boolean {
+  calcKLVert(): any {
     for (let i = 0; i < this.KLLinks.length; i++) {
       // rechts ist besser, links ist schlechter
       let diff = this.KLLinks[i] - this.KLRechts[i];
@@ -59,9 +89,10 @@ export class AudiogramComponent {
         let diffMO = this.LLLinks[i] - this.KLLinks[i]; // auf Messohr
         if (diffMO > 10) {
           this.VertRechtsKL[i] = this.LLRechts[i] + 20 + (this.KLLinks[i] - (this.KLRechts[i] + 10));
-          return true
+        } else {
+          this.VertRechtsKL[i] = null;
         }
-      }
+      } else { this.VertRechtsKL[i] = null; }
     }
     for (let i = 0; i < this.KLLinks.length; i++) {
       // links ist besser, rechts ist schlechter
@@ -71,25 +102,47 @@ export class AudiogramComponent {
         let diffMO = this.LLRechts[i] - this.KLRechts[i]; // auf Messohr
         if (diffMO > 10) {
           this.VertLinksKL[i] = this.LLLinks[i] + 20 + (this.KLRechts[i] - (this.KLLinks[i] + 10));
-          return true
-        }
+        } else { this.VertLinksKL[i] = null; }
+      } else { this.VertLinksKL[i] = null; }
+    }
+  }
+
+
+  checkForLLVert(): boolean {
+    for (let i = 0; i < this.KLLinks.length; i++) {
+      let diff = Math.abs(this.KLLinks[i] - this.LLRechts[i]);
+      if (diff >= 50) {
+        return true;
+      }
+    }
+    for (let i = 0; i < this.KLRechts.length; i++) {
+      let diff = Math.abs(this.KLRechts[i] - this.LLLinks[i]);
+      if (diff >= 50) {
+        return true;
       }
     }
     return false;
   }
 
-  checkAndCalcLLVert(): boolean {
+
+  calcLLVert() {
     for (let i = 0; i < this.KLLinks.length; i++) {
       let diff = Math.abs(this.KLLinks[i] - this.LLRechts[i]);
-      if (diff >= 50) { return true }
+      if (diff >= 50) {
+        if (this.showVertpegel) {
+          this.VertLinksLL[i] = this.LLLinks[i] + 20;
+        }
+      } else { this.VertLinksLL[i] = null }
     }
     for (let i = 0; i < this.KLRechts.length; i++) {
       let diff = Math.abs(this.KLRechts[i] - this.LLLinks[i]);
-      if (diff >= 50) { return true }
+      if (diff >= 50) {
+        if (this.showVertpegel) {
+          this.VertRechtsLL[i] = this.LLRechts[i] + 20;
+        }
+      } else { this.VertRechtsLL[i] = null }
     }
-    return false;
   }
-
 
   // Chart-Typ: LineChart
   public lineChartType: ChartType = 'line';
@@ -163,35 +216,20 @@ export class AudiogramComponent {
   };
 
   // Methode zum Aktualisieren des Charts
-  updateChartRight() {
-    if (this.showVertpegel) { this.hideVert() };
+  updateCharts() {
     this.lineChartDataRight = { ...this.lineChartDataRight };
-    this.chartRight?.update(); // Aktualisiert den Chart
-  }
-  updateChartLeft() {
-    if (this.showVertpegel) { this.hideVert() };
     this.lineChartDataLeft = { ...this.lineChartDataLeft };
+    this.chartRight?.update(); // Aktualisiert den Chart
     this.chartLeft?.update(); // Aktualisiert den Chart
   }
 
 
   toggleVert() {
-    if (this.showVertpegel) {
-      // nicht zeigen
-      this.VertLinksKL.fill(null);
-      this.VertLinksLL.fill(null);
-      this.VertRechtsKL.fill(null);
-      this.VertRechtsLL.fill(null);
-      this.showVertpegel = false;
-    } else {
-      //zeigen
-      //this.calculateVert();
-      this.showVertpegel = true;
-    }
-
-    this.updateChartLeft();
-    this.updateChartRight();
-
+    this.showVertpegel = !this.showVertpegel;
+    // aktuelles rechnen
+    this.calcVert();
+    // updaten
+    this.updateCharts();
   }
 
 
