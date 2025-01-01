@@ -20,14 +20,14 @@
             <tr>@for (value of KLRechts; track value; let index = $index) {
                 <td>
                     <input [(ngModel)]="KLRechts[index]" type="number" step="5" min="0" max="{{LLRechts[index]}}"
-                        (ngModelChange)="updateChartRight();checkKLVert()">
+                        (ngModelChange)="checkAndCalcVert();updateChartRight()">
                 </td>
                 }
             </tr>
             <tr>@for (value of LLRechts; track value; let index = $index) {
                 <td>
                     <input [(ngModel)]="LLRechts[index]" type="number" step="5" min="{{KLRechts[index]}}" max="120"
-                        (ngModelChange)="updateChartRight();checkKLVert()">
+                        (ngModelChange)="checkAndCalcVert();updateChartRight()">
                 </td>
                 }
             </tr>
@@ -51,14 +51,14 @@
             <tr>@for (value of KLLinks; track value; let index = $index) {
                 <td>
                     <input [(ngModel)]="KLLinks[index]" type="number" step="5" min="0" max="{{LLLinks[index]}}"
-                        (ngModelChange)="updateChartLeft();checkKLVert()">
+                        (ngModelChange)="checkAndCalcVert();updateChartRight()">
                 </td>
                 }
             </tr>
             <tr>@for (value of LLLinks; track value; let index = $index) {
                 <td>
                     <input [(ngModel)]="LLLinks[index]" type="number" step="5" min="{{KLLinks[index]}}" max="120"
-                        (ngModelChange)="updateChartLeft();checkKLVert()">
+                        (ngModelChange)="checkAndCalcVert();updateChartRight()">
                 </td>
                 }
             </tr>
@@ -71,7 +71,7 @@
 </section>
 
 <section>
-    @if (checkKLVert() || checkLLVert()) {
+    @if (checkAndCalcKLVert() || checkAndCalcLLVert()) {
     Die Audiogramme wurden unter Vertäubung aufgenommen.
     }
 </section>
