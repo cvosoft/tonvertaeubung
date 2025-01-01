@@ -17,6 +17,8 @@ export class AudiogramComponent {
   @ViewChild('chartRight', { static: false, read: BaseChartDirective }) chartRight?: BaseChartDirective;
   @ViewChild('chartLeft', { static: false, read: BaseChartDirective }) chartLeft?: BaseChartDirective;
 
+  Math = Math;
+
   showVertpegel: boolean = false;
 
   KLRechts = [5, 5, 5, 5, 0, 5];
@@ -47,7 +49,7 @@ export class AudiogramComponent {
       if (this.VertLinksLL[i] - 50 >= this.KLRechts[i]) { return true }
       if (this.VertRechtsLL[i] - 50 >= this.KLLinks[i]) { return true }
       if (this.VertLinksKL[i] - 50 >= this.KLRechts[i]) { return true }
-      if (this.VertRechtsKL[i] - 50 >= this.KLLinks[i]) { return true }      
+      if (this.VertRechtsKL[i] - 50 >= this.KLLinks[i]) { return true }
     } return false
   }
 
