@@ -70,7 +70,7 @@ export class AudiogramComponent {
       let diff = this.KLLinks[i] - this.KLRechts[i];
       if (diff >= 10) {
         // ist es überhaupt nötig?
-        let diffMO = this.LLLinks[i] - this.KLLinks[i]; // auf Messohr
+        let diffMO = this.LLLinks[i] - (this.KLRechts[i] + 10); // auf Messohr
         if (diffMO > 10) {
           return true
         }
@@ -81,7 +81,7 @@ export class AudiogramComponent {
       let diff = this.KLRechts[i] - this.KLLinks[i];
       if (diff >= 10) {
         // ist es überhaupt nötig?
-        let diffMO = this.LLRechts[i] - this.KLRechts[i]; // auf Messohr
+        let diffMO = this.LLRechts[i] - (this.KLLinks[i] + 10); // auf Messohr
         if (diffMO > 10) {
           return true
         }
@@ -97,7 +97,7 @@ export class AudiogramComponent {
       let diff = this.KLLinks[i] - this.KLRechts[i];
       if (diff >= 10) {
         // ist es überhaupt nötig?
-        let diffMO = this.LLLinks[i] - this.KLLinks[i]; // auf Messohr
+        let diffMO = this.LLLinks[i] - (this.KLRechts[i] + 10); // auf Messohr
         if (diffMO > 10) {
           this.VertRechtsKL[i] = this.LLRechts[i] + 20 + (this.KLLinks[i] - (this.KLRechts[i] + 10));
         } else {
@@ -110,7 +110,7 @@ export class AudiogramComponent {
       let diff = this.KLRechts[i] - this.KLLinks[i];
       if (diff >= 10) {
         // ist es überhaupt nötig?
-        let diffMO = this.LLRechts[i] - this.KLRechts[i]; // auf Messohr
+        let diffMO = this.LLRechts[i] - (this.KLLinks[i] + 10); // auf Messohr
         if (diffMO > 10) {
           this.VertLinksKL[i] = this.LLLinks[i] + 20 + (this.KLRechts[i] - (this.KLLinks[i] + 10));
         } else { this.VertLinksKL[i] = null; }
