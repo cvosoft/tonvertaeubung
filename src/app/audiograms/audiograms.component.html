@@ -71,19 +71,19 @@
 </section>
 
 <section>
-    @if (checkKLVert()) {
-    Die KL musste bei mindestens einer Frequenz vertäubt werden!!
+    @if (checkKLVert() || checkLLVert()) {
+    Die Audiogramme wurden unter Vertäubung aufgenommen.
     }
 </section>
+
+<!--
 
 <section>
     @if (checkLLVert()) {
     Die LL musste bei mindestens einer Frequenz vertäubt werden!!
     }
-</section>
+</section> -->
 
 <section>
-    @if (checkKLVert() || checkLLVert()) {
-    <button (click)="toggleVert()">Zeige/Verstecke Vertäubungspegel</button>
-    }
+    <input type="checkbox" (change)="toggleVert()">Zeige Vertäubungspegel
 </section>

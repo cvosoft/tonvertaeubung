@@ -17,7 +17,7 @@ export class AudiogramComponent {
   @ViewChild('chartRight', { static: false, read: BaseChartDirective }) chartRight?: BaseChartDirective;
   @ViewChild('chartLeft', { static: false, read: BaseChartDirective }) chartLeft?: BaseChartDirective;
 
-  show: boolean = false;
+  showVertpegel: boolean = false;
 
   KLRechts = [10, 10, 5, 5, 0, 5];
   LLRechts = [30, 40, 45, 55, 50, 55];
@@ -25,10 +25,31 @@ export class AudiogramComponent {
   KLLinks = [10, 10, 5, 5, 0, 5];
   LLLinks = [20, 20, 15, 15, 10, 15];
 
-  VertLinksKL = [60, null, null, null, null, null];
-  VertLinksLL = [70, null, null, null, null, null];
-  VertRechtsKL = [80, null, null, null, null, null];
-  VertRechtsLL = [90, null, null, null, null, null];
+  VertLinksKL: any = [null, null, null, null, null, null];
+  VertLinksLL: any = [null, null, null, null, null, null];
+  VertRechtsKL: any = [null, null, null, null, null, null];
+  VertRechtsLL: any = [null, null, null, null, null, null];
+
+
+  constructor() {
+  }
+
+  calculateVert() {
+    if (this.checkKLVert()) {
+      for (let i = 0; i < this.KLLinks.length; i++) {
+        // rechts ist besser, links ist schlechter
+        let diff = this.KLLinks[i] - this.KLRechts[i];
+        if (diff >= 10) {
+          // ist es überhaupt nötig?
+          let diffMO = this.LLLinks[i] - this.KLLinks[i]; // auf Messohr
+          if (diffMO > 10) {
+            this.VertRechtsKL[i] = this.LLRechts[i] + 20 + (this.KLLinks[i] - (this.KLRechts[i] + 10));
+          }
+        }
+      }
+    }
+  }
+
 
 
   checkKLVert(): boolean {
@@ -50,7 +71,6 @@ export class AudiogramComponent {
         if (diffMO > 10) { return true }
       }
     }
-
     return false;
   }
 
@@ -150,12 +170,19 @@ export class AudiogramComponent {
 
 
   toggleVert() {
-    if (!this.show) {
+    if (this.showVertpegel) {
+      // nicht zeigen
       this.VertLinksKL.fill(null);
       this.VertLinksLL.fill(null);
       this.VertRechtsKL.fill(null);
       this.VertRechtsLL.fill(null);
+      this.showVertpegel = false;
+    } else {
+      //zeigen
+      this.calculateVert();
+      this.showVertpegel = true;
     }
+
     this.updateChartLeft();
     this.updateChartRight();
 
