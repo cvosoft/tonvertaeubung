@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { MatButton } from '@angular/material/button';
+import { setPostSignalSetFn } from '@angular/core/primitives/signals';
 
 
 @Component({
@@ -24,8 +25,8 @@ export class AudiogramComponent {
   KLRechts = [5, 5, 5, 5, 55, 5];
   LLRechts = [10, 10, 10, 15, 75, 15];
 
-  KLLinks = [15, 10, 15, 20, 20, 5];
-  LLLinks = [30, 20, 45, 40, 40, 45];
+  KLLinks = [15, 15, 15, 20, 20, 5];
+  LLLinks = [30, 25, 45, 40, 40, 45];
 
   VertLinksKL: any = [null, null, null, null, null, null];
   VertLinksLL: any = [null, null, null, null, null, null];
@@ -93,19 +94,23 @@ export class AudiogramComponent {
 
 
   calcKLVert(): any {
+    // rechts ist besseres GO, links ist schlechteres MO
     for (let i = 0; i < this.KLLinks.length; i++) {
-      // rechts ist besser, links ist schlechter
       let diff = this.KLLinks[i] - this.KLRechts[i];
-      if (diff >= 10) {
-        // ist es überhaupt nötig?
-        let diffMO = this.LLLinks[i] - (this.KLRechts[i] + 10); // auf Messohr
-        if (diffMO > 10) {
-          this.VertRechtsKL[i] = this.LLRechts[i] + 20 + (this.KLLinks[i] - (this.KLRechts[i] + 10));
-        } else {
-          this.VertRechtsKL[i] = null;
-        }
-      } else { this.VertRechtsKL[i] = null; }
+      let shadow = this.KLRechts[i] + 10;
+      let wandering = this.KLLinks[i] - shadow;
+      let SLMO = this.LLLinks[i] - this.KLLinks[i];
+      if (diff > 10) { // auf jeden fall nötig
+        this.VertRechtsKL[i] = this.LLRechts[i] + 20 + wandering;
+      } else if (diff == 10 && SLMO >= 15) { // nur nötig bei dubios. sl anteil
+        this.VertRechtsKL[i] = this.LLRechts[i] + 20;
+      } else { this.VertRechtsKL[i] = null } // nix los
     }
+
+
+
+
+
     for (let i = 0; i < this.KLLinks.length; i++) {
       // links ist besser, rechts ist schlechter
       let diff = this.KLRechts[i] - this.KLLinks[i];
@@ -270,6 +275,7 @@ export class AudiogramComponent {
         beginAtZero: true,
         min: 0,
         max: 120,
+        ticks: { stepSize: 10 },
         title: {
           display: true,
           text: 'Hörpegel (dB)',
