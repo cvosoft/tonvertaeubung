@@ -5,21 +5,44 @@ section {
     gap: 10px;
 
 
-    div {
+    .container {
 
         padding: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
         border: 1px solid black;
+        max-width: 400px;
 
         canvas {
-            width: 25vw !important;
-            height: 60vh !important;
+            width: 350px !important;
+            max-height: 50vh;
             border: 1px solid black;
             margin: 5px;
-            padding: 5px;
+            padding: 2px;
         }
+
+        table {
+            width: 100% !important;
+            border: thin solid;
+            border-collapse: collapse;
+
+
+            td,
+            th {
+                border: thin solid;
+
+
+                input {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 50px !important;
+                }
+
+            }
+        }
+
     }
 }
 

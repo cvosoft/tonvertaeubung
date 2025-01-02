@@ -11,7 +11,8 @@
 
 <section>
 
-    <div>
+    <div class="container">
+        
         <canvas baseChart #chartRight [data]="lineChartDataRight" [options]="lineChartOptions" [type]="lineChartType">
         </canvas>
 
@@ -43,7 +44,7 @@
 
     </div>
 
-    <div>
+    <div class="container">
         <canvas baseChart #chartLeft [data]="lineChartDataLeft" [options]="lineChartOptions" [type]="lineChartType">
         </canvas>
 
@@ -79,7 +80,7 @@
 <section>
     @if (checkForKLVert() || checkForLLVert()) {
     Die Audiogramme wurden unter Vertäubung aufgenommen.
-    } @else {Die Audiogramme wurden ohne Vertäubung aufgenommen.}
+    } @else {Die Audiogramme wurden <b>ohne</b> Vertäubung aufgenommen.}
     <!-- @if (checkForKLVert()) {
     (KL)
     }
@@ -103,8 +104,8 @@
     }
 </section>
 
-<!-- <section>
+<section>
     @if (checkForKLVert() || checkForLLVert()) {
     <input type="checkbox" (change)="toggleVert()">Zeige Vertäubungspegel
     }
-</section> -->
+</section>
