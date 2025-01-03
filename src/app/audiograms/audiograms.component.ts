@@ -265,25 +265,44 @@ export class AudiogramComponent {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: false
+        display: false,
+        labels: {
+          font: {
+            size: 28,
+          }
+        }
       }
     },
     scales: {
       x: {
+        grid: {
+          color: 'lightgrey',
+        },
         title: {
           display: true,
-          text: 'Frequenz (kHz)'
-        }
+          text: 'Frequenz (kHz)',
+          color: 'black',
+        },
+        ticks: {
+          color: 'black',
+        },
       },
       y: {
+        grid: {
+          color: 'lightgrey',
+        },
         reverse: true,
         beginAtZero: true,
         min: 0,
         max: 120,
-        ticks: { stepSize: 10 },
+        ticks: {
+          stepSize: 10,
+          color: 'black',
+        },
         title: {
           display: true,
           text: 'Hörpegel (dB)',
+          color: 'black',
         }
       }
     }
