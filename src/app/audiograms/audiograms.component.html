@@ -92,23 +92,29 @@
 } -->
 </section>
 
-<section>
-    <span style="font-size: small;">
-        Symbol für KL-Vertäubung: Stern<br>
-        Symbol für LL-Vertäubung: Rechteck
-    </span>
-</section>
+
 
 
 
 <section>
     @if (checkForUberVert()){
-    Achtung: Übervertäubung!
+    <span style="color:red">Achtung: Übervertäubung!</span>
     }
 </section>
 
 <section>
     @if (checkForKLVert() || checkForLLVert()) {
-    <input type="checkbox" (change)="toggleVert()">Zeige Vertäubungspegel
+    <label style="display: flex; gap: 3px; justify-content: center;">
+        <input type="checkbox" (change)="toggleVert()">
+        <span>Zeige Vertäubungspegel
+        </span>
+    </label>
     }
+</section>
+
+<section>
+    <span style="font-size: small;">
+        Symbol für KL-Vertäubung: Stern<br>
+        Symbol für LL-Vertäubung: Rechteck
+    </span>
 </section>
