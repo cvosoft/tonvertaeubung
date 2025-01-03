@@ -36,10 +36,14 @@ export class AudiogramComponent {
 
   imageKLR = new Image(20,20);
   imageKLL = new Image(20,20);
+  imageVertKLL = new Image(20,20);
+  imageVertKLR = new Image(20,20);
 
   constructor() {
     this.imageKLR.src = 'greater.svg';
     this.imageKLL.src = 'less.svg';
+    this.imageVertKLL.src = 'zigzagL.svg';
+    this.imageVertKLR.src = 'zigzagR.svg';
   }
 
 
@@ -185,7 +189,7 @@ export class AudiogramComponent {
       {
         data: this.VertRechtsKL,
         borderColor: 'blue',
-        pointStyle: 'star',
+        pointStyle: this.imageVertKLR,
         pointRadius: 5,
         fill: false,
         showLine: false //<- set this
@@ -227,7 +231,7 @@ export class AudiogramComponent {
         borderColor: 'red',
         pointRadius: 5,
         fill: false,
-        pointStyle: 'star',
+        pointStyle: this.imageVertKLL,
         showLine: false //<- set this
       },
       {
