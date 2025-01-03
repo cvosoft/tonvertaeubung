@@ -18,6 +18,7 @@ export class AudiogramComponent {
   @ViewChild('chartRight', { static: false, read: BaseChartDirective }) chartRight?: BaseChartDirective;
   @ViewChild('chartLeft', { static: false, read: BaseChartDirective }) chartLeft?: BaseChartDirective;
 
+
   Math = Math;
 
   showVertpegel: boolean = false;
@@ -33,9 +34,12 @@ export class AudiogramComponent {
   VertRechtsKL: any = [null, null, null, null, null, null];
   VertRechtsLL: any = [null, null, null, null, null, null];
 
+  imageKLR = new Image(20,20);
+  imageKLL = new Image(20,20);
 
   constructor() {
-    //this.calcVert();
+    this.imageKLR.src = 'greater.svg';
+    this.imageKLL.src = 'less.svg';
   }
 
 
@@ -166,7 +170,8 @@ export class AudiogramComponent {
       {
         data: this.KLRechts,
         borderColor: 'red',
-        pointStyle: 'triangle',
+        //pointStyle: 'triangle',
+        pointStyle: this.imageKLR,
         borderDash: [5, 5],
         pointRadius: 7,
         fill: false,
@@ -188,7 +193,7 @@ export class AudiogramComponent {
       {
         data: this.VertRechtsLL,
         borderColor: 'blue',
-        pointStyle: 'rect',
+        pointStyle: 'line',
         pointRadius: 5,
         fill: false,
         showLine: false //<- set this
@@ -202,7 +207,9 @@ export class AudiogramComponent {
     datasets: [
       {
         data: this.KLLinks,
-        pointStyle: 'triangle',
+        //pointStyle: 'triangle',
+        pointStyle: this.imageKLL,
+        color: 'blue',
         pointRadius: 7,
         borderDash: [5, 5],
         borderColor: 'blue',
@@ -226,7 +233,7 @@ export class AudiogramComponent {
       {
         data: this.VertLinksLL,
         borderColor: 'red',
-        pointStyle: 'rect',
+        pointStyle: 'line',
         pointRadius: 5,
         fill: false,
         showLine: false //<- set this
